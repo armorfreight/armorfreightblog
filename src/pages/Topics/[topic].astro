@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const topics = [...new Set(posts.map((p) => p.data.topic).filter(Boolean))];
+  return topics.map((topic) => ({
+    params: { topic: topic.toLowerCase().replace(/\s+/g, '-') },
+    props: {
+      topic,
+      posts: posts
+        .filter((p) => p.data.topic === topic)
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { topic, posts } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`${topic} — Armor Freight Journal`} description={`Articles on ${topic} from the Armor Freight Journal.`} />
+  </head>
+  <body class="bg-white text-af-ink">
+    <Header />
+    <main class="mx-auto max-w-4xl px-6 py-16">
+      <p class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">Topic</p>
+      <h1 class="mt-3 text-4xl font-extrabold tracking-tight md:text-5xl">{topic}</h1>
+      <ul class="mt-10 space-y-8">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}/`} class="group block no-underline">
+              <h2 class="text-2xl font-extrabold tracking-tight group-hover:text-af-green-dark">{post.data.title}</h2>
+              <p class="mt-2 text-neutral-600">{post.data.description}</p>
+              <p class="mt-2 text-sm text-neutral-500"><FormattedDate date={post.data.pubDate} /></p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -11,6 +11,11 @@ const posts = (await getCollection('blog')).sort(
 );
 const featured = posts[0];
 const latest = posts.slice(1, 4);
+
+// Topics that actually have at least one article become links; the rest stay plain text.
+const usedTopics = new Set(posts.map((p) => p.data.topic).filter(Boolean));
+const slugify = (s) => s.toLowerCase().replace(/\s+/g, '-');
+
 const topics = [
   ['Operations', 'when the plan breaks'],
   ['Customer service', 'why the broken load decides the relationship'],
@@ -83,11 +88,19 @@ const topics = [
             <span class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">The index</span>
           </div>
           {topics.map(([name, gloss]) => (
-            <div class="flex items-baseline gap-3 border-b border-neutral-300/70 py-3 last:border-b-0">
-              <span class="whitespace-nowrap font-extrabold text-af-ink">{name}</span>
-              <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-400"></span>
-              <span class="whitespace-nowrap text-sm italic text-af-green-dark">{gloss}</span>
-            </div>
+            usedTopics.has(name) ? (
+              <a href={`/topics/${slugify(name)}/`} class="group flex items-baseline gap-3 border-b border-neutral-300/70 py-3 no-underline last:border-b-0">
+                <span class="whitespace-nowrap font-extrabold text-af-ink group-hover:text-af-green-dark">{name}</span>
+                <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-400"></span>
+                <span class="whitespace-nowrap text-sm italic text-af-green-dark">{gloss}</span>
+              </a>
+            ) : (
+              <div class="flex items-baseline gap-3 border-b border-neutral-300/70 py-3 last:border-b-0">
+                <span class="whitespace-nowrap font-extrabold text-neutral-400">{name}</span>
+                <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-300"></span>
+                <span class="whitespace-nowrap text-sm italic text-neutral-400">{gloss}</span>
+              </div>
+            )
           ))}
         </div>
       </section>
