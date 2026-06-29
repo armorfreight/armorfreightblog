@@ -1,49 +1,97 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const featured = posts[0];
+const latest = posts.slice(1, 4);
+const topics = [
+  ['Operations', 'when the plan breaks'],
+  ['Customer service', 'why the broken load decides the relationship'],
+  ['LTL', 'partial-load economics'],
+  ['Truckload', 'the true cost of cheap'],
+  ['Warehousing', 'what happens between the docks'],
+  ['Retail logistics', 'the last mile to the shelf'],
+];
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="bg-white text-af-ink">
+    <Header />
+    <main>
+      <section class="bg-af-ink">
+        <div class="mx-auto max-w-4xl px-6 py-20 md:py-28">
+          <p class="text-xs font-bold uppercase tracking-[0.32em] text-af-green">Armor Freight Journal</p>
+          <h1 class="mt-6 max-w-[24ch] text-4xl font-extrabold leading-[1.05] tracking-tight text-white md:text-6xl">
+            Most freight companies measure success by the loads that never had a problem.
+          </h1>
+          <p class="mt-6 max-w-2xl text-xl font-medium leading-snug text-neutral-400 md:text-2xl">
+            Our customers remember us for the ones that did.
+          </p>
+          {featured && (
+            <a href={`/blog/${featured.id}/`}
+               class="mt-8 inline-block rounded-md bg-af-green px-5 py-3 font-bold text-af-ink no-underline transition hover:brightness-95">
+              Read the Journal →
+            </a>
+          )}
+        </div>
+      </section>
+
+      {featured && (
+        <section class="mx-auto max-w-4xl px-6 py-16">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">Featured essay</p>
+          <a href={`/blog/${featured.id}/`} class="group mt-3 block no-underline">
+            <h2 class="max-w-[20ch] text-3xl font-extrabold leading-[1.1] tracking-tight text-af-ink group-hover:text-af-green-dark md:text-4xl">
+              {featured.data.title}
+            </h2>
+            <p class="mt-4 max-w-2xl text-lg leading-relaxed text-neutral-600">{featured.data.description}</p>
+            <p class="mt-4 text-sm text-neutral-500"><FormattedDate date={featured.data.pubDate} /></p>
+          </a>
+        </section>
+      )}
+
+      {latest.length > 0 && (
+        <section class="mx-auto max-w-4xl border-t border-neutral-200 px-6 py-16">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">Latest thinking</p>
+          <ul class="mt-8 space-y-8">
+            {latest.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}/`} class="group block no-underline">
+                  <h3 class="text-2xl font-extrabold tracking-tight text-af-ink group-hover:text-af-green-dark">{post.data.title}</h3>
+                  <p class="mt-2 max-w-2xl text-neutral-600">{post.data.description}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section class="mx-auto max-w-4xl px-6 py-16">
+        <div class="rounded-xl border border-neutral-200 bg-white p-8 md:p-10">
+          <div class="flex items-baseline justify-between border-b-2 border-af-ink pb-3">
+            <h2 class="text-2xl font-extrabold tracking-tight text-af-ink">Browse by topic</h2>
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">The index</span>
+          </div>
+          {topics.map(([name, gloss]) => (
+            <div class="flex items-baseline gap-3 border-b border-neutral-300/70 py-3 last:border-b-0">
+              <span class="whitespace-nowrap font-extrabold text-af-ink">{name}</span>
+              <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-400"></span>
+              <span class="whitespace-nowrap text-sm italic text-af-green-dark">{gloss}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
 </html>
