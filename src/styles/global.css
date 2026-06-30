@@ -5,6 +5,7 @@
   --color-af-green: #8fc31f;
   --color-af-green-dark: #6a9416;
   --color-af-ink: #0a0a0a;
+  --font-display: "Anton", system-ui, sans-serif;
 }
 
 html {
@@ -50,76 +51,92 @@ pre {
   clip: rect(0, 0, 0, 0);
 }
 
-/* ---- Editorial article typography ---- */
-/* Customizes the Tailwind `prose` styles used in article bodies
-   to give long-form reading a premium, publication-grade feel. */
+/* ---- Display headline utility ---- */
+/* Anton is a heavy condensed display face. Used on all major headlines
+   for a bold-editorial / magazine feel. Tracking is loosened slightly
+   because Anton sets very tight by default. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400; /* Anton ships at a single heavy weight */
+  letter-spacing: 0.005em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
 
-.prose {
-  --tw-prose-body: #2a2a2a;
+/* ---- Editorial article typography ---- */
+.prose.prose {
+  --tw-prose-body: #222222;
   --tw-prose-headings: #0a0a0a;
   --tw-prose-links: #6a9416;
   --tw-prose-bold: #0a0a0a;
   --tw-prose-quotes: #0a0a0a;
   --tw-prose-quote-borders: #8fc31f;
   --tw-prose-bullets: #8fc31f;
-  font-size: 1.175rem;
+  font-size: 1.2rem;
   line-height: 1.8;
   letter-spacing: -0.003em;
 }
 
-/* Comfortable paragraph spacing */
-.prose p {
+.prose.prose p {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
 }
 
-/* Confident, well-spaced headings */
-.prose h2 {
+/* Article body headings use the Anton display face, uppercase, loud */
+.prose.prose h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  font-size: 2rem;
   margin-top: 2.5em;
-  margin-bottom: 0.75em;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.prose h3 {
-  margin-top: 2em;
   margin-bottom: 0.6em;
-  font-weight: 800;
-  letter-spacing: -0.015em;
+  padding-bottom: 0.3em;
+  border-bottom: 3px solid #0a0a0a;
 }
 
-/* Links: underlined, brand-colored, with breathing room */
-.prose a {
+.prose.prose h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  font-size: 1.5rem;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.prose.prose a {
   text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: 2px;
   font-weight: 600;
   transition: color 0.15s ease;
 }
 
-.prose a:hover {
+.prose.prose a:hover {
   color: #0a0a0a;
 }
 
-/* Blockquotes as editorial pull-quotes */
-.prose blockquote {
-  border-left-width: 3px;
+.prose.prose blockquote {
+  border-left-width: 4px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.35rem;
   color: #0a0a0a;
   padding-left: 1.25em;
 }
 
-/* Leading drop for the first paragraph after the article header */
-.prose > p:first-of-type {
-  font-size: 1.3rem;
-  line-height: 1.6;
-  color: #1a1a1a;
+/* Lead paragraph — large, assertive opening */
+.prose.prose > p:first-of-type {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: #0a0a0a;
+  font-weight: 500;
 }
 
-/* Tighter, slightly larger first line of emphasis lists */
-.prose ul > li,
-.prose ol > li {
+.prose.prose ul > li,
+.prose.prose ol > li {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   padding-left: 0.3em;
