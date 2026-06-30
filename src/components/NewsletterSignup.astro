@@ -1,0 +1,86 @@
+---
+// Inline newsletter signup. Posts to the standalone newsletter Worker.
+const WORKER_URL = "https://armorfreight-newsletter.aaron-329.workers.dev";
+---
+
+<section class="my-12 rounded-lg border border-neutral-200 bg-neutral-50 p-8">
+  <p class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">
+    The Armor Freight Journal
+  </p>
+  <h3 class="mt-2 text-2xl font-extrabold tracking-tight text-af-ink">
+    Get new essays in your inbox
+  </h3>
+  <p class="mt-2 text-neutral-600">
+    Operational insight from the road, the dock, and the dispatch desk. No spam, unsubscribe anytime.
+  </p>
+
+  <div class="mt-5 flex flex-col gap-3 sm:flex-row" data-newsletter>
+    <input
+      type="email"
+      placeholder="you@company.com"
+      required
+      data-email
+      class="w-full rounded-md border border-neutral-300 px-4 py-2.5 text-af-ink focus:border-af-green-dark focus:outline-none focus:ring-1 focus:ring-af-green-dark sm:max-w-xs"
+    />
+    <button
+      type="button"
+      data-submit
+      class="rounded-md bg-af-ink px-6 py-2.5 font-semibold text-white transition hover:bg-af-green-dark"
+    >
+      Subscribe
+    </button>
+  </div>
+  <p class="mt-3 text-sm" data-message aria-live="polite"></p>
+</section>
+
+<script define:vars={{ WORKER_URL }}>
+  document.querySelectorAll("[data-newsletter]").forEach((form) => {
+    const input = form.querySelector("[data-email]");
+    const button = form.querySelector("[data-submit]");
+    const message = form.parentElement.querySelector("[data-message]");
+
+    async function submit() {
+      const email = input.value.trim();
+      if (!email) {
+        message.textContent = "Please enter your email.";
+        message.className = "mt-3 text-sm text-red-600";
+        return;
+      }
+
+      button.disabled = true;
+      const original = button.textContent;
+      button.textContent = "Subscribing…";
+      message.textContent = "";
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        if (res.ok && data.ok) {
+          form.style.display = "none";
+          message.textContent = "Thanks — you're subscribed.";
+          message.className = "mt-3 text-sm font-medium text-af-green-dark";
+        } else {
+          message.textContent = data.error || "Something went wrong. Please try again.";
+          message.className = "mt-3 text-sm text-red-600";
+          button.disabled = false;
+          button.textContent = original;
+        }
+      } catch {
+        message.textContent = "Something went wrong. Please try again.";
+        message.className = "mt-3 text-sm text-red-600";
+        button.disabled = false;
+        button.textContent = original;
+      }
+    }
+
+    button.addEventListener("click", submit);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submit();
+    });
+  });
+</script>
