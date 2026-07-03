@@ -12,8 +12,10 @@ const posts = (await getCollection('blog')).sort(
 const featured = posts[0];
 const latest = posts.slice(1, 4);
 
-const usedTopics = new Set(posts.map((p) => p.data.topic).filter(Boolean));
 const slugify = (s) => s.toLowerCase().replace(/\s+/g, '-');
+const usedTopics = new Set(
+  posts.map((p) => p.data.topic).filter(Boolean).map(slugify)
+);
 
 const topics = [
   ['Operations', 'when the plan breaks'],
@@ -105,7 +107,7 @@ const topics = [
         </div>
         <div class="mt-2">
           {topics.map(([name, gloss]) => (
-            usedTopics.has(name) ? (
+            usedTopics.has(slugify(name)) ? (
               <a href={`/topics/${slugify(name)}/`} class="group flex items-baseline gap-3 border-b border-neutral-300 py-4 no-underline last:border-b-0">
                 <span class="whitespace-nowrap text-lg font-extrabold uppercase tracking-wide text-af-ink group-hover:text-af-green-dark">{name}</span>
                 <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-400"></span>
