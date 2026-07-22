@@ -106,20 +106,12 @@ const topics = [
           <span class="text-xs font-bold uppercase tracking-[0.25em] text-af-green-dark">The index</span>
         </div>
         <div class="mt-2">
-          {topics.map(([name, gloss]) => (
-            usedTopics.has(slugify(name)) ? (
-              <a href={`/topics/${slugify(name)}/`} class="group flex items-baseline gap-3 border-b border-neutral-300 py-4 no-underline last:border-b-0">
-                <span class="whitespace-nowrap text-lg font-extrabold uppercase tracking-wide text-af-ink group-hover:text-af-green-dark">{name}</span>
-                <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-400"></span>
-                <span class="whitespace-nowrap text-sm italic text-af-green-dark">{gloss}</span>
-              </a>
-            ) : (
-              <div class="flex items-baseline gap-3 border-b border-neutral-300 py-4 last:border-b-0">
-                <span class="whitespace-nowrap text-lg font-extrabold uppercase tracking-wide text-neutral-400">{name}</span>
-                <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-300"></span>
-                <span class="whitespace-nowrap text-sm italic text-neutral-400">{gloss}</span>
-              </div>
-            )
+          {topics.filter(([name]) => usedTopics.has(slugify(name))).map(([name, gloss]) => (
+            <a href={`/topics/${slugify(name)}/`} class="group flex items-baseline gap-3 border-b border-neutral-300 py-4 no-underline last:border-b-0">
+              <span class="whitespace-nowrap text-lg font-extrabold uppercase tracking-wide text-af-ink group-hover:text-af-green-dark">{name}</span>
+              <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-400"></span>
+              <span class="whitespace-nowrap text-sm italic text-af-green-dark">{gloss}</span>
+            </a>
           ))}
         </div>
       </section>
