@@ -2,6 +2,7 @@
 title: "Why Most Freight Companies Fail During Exceptions"
 description: "The loads that go perfectly rarely define a transportation partner. The loads that go sideways always do."
 pubDate: 2026-06-29
+topic: "Customer Service"
 ---
 
 Most freight companies compete on the smooth loads.

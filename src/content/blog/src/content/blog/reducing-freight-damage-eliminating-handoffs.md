@@ -2,6 +2,7 @@
 title: "Reducing Freight Damage by Eliminating Unnecessary Handoffs"
 description: "A national distributor was losing freight to a model built on handoffs. The fix wasn't a different truck. It was removing the handoffs."
 pubDate: 2026-07-01
+topic: "LTL"
 ---
 
 Most damage claims don't begin with a forklift. They begin with a business model.
