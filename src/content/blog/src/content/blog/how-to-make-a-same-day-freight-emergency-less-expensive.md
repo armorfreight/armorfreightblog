@@ -1,7 +1,7 @@
 ---
 title: "How to Make a Same-Day Freight Emergency Less Expensive"
 description: "When a shipment turns urgent, the first move is not always the fastest truck. It is the decision that protects schedule and cost."
-pubDate: 2026-08-27
+pubDate: 2026-08-25
 topic: "Operations"
 related:
   - "why-carriers-break-down-before-pickup"

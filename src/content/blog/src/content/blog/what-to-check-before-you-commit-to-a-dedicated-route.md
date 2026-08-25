@@ -1,7 +1,7 @@
 ---
 title: "What to Check Before You Commit to a Dedicated Route"
 description: "A dedicated lane only works when the route, equipment, and communication plan fit the real operating rhythm behind the freight."
-pubDate: 2026-08-26
+pubDate: 2026-08-25
 topic: "Operations"
 related:
   - "why-carriers-break-down-before-pickup"

@@ -7,16 +7,23 @@ export function withJournalTracking(url: string, content: string, campaign = 'jo
 
   try {
     const destination = new URL(url, 'https://armorfreightblog.com');
+    const isJournalInternal =
+      !/^https?:\/\//i.test(url) ||
+      destination.hostname === 'armorfreightblog.com' ||
+      destination.hostname === 'www.armorfreightblog.com';
+
+    if (isJournalInternal) {
+      return url.startsWith('http://') || url.startsWith('https://')
+        ? `${destination.pathname}${destination.search}${destination.hash}`
+        : url;
+    }
+
     destination.searchParams.set('utm_source', JOURNAL_UTM_SOURCE);
     destination.searchParams.set('utm_medium', 'referral');
     destination.searchParams.set('utm_campaign', campaign);
     destination.searchParams.set('utm_content', content);
 
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      return destination.toString();
-    }
-
-    return `${destination.pathname}${destination.search}${destination.hash}`;
+    return destination.toString();
   } catch {
     return url;
   }

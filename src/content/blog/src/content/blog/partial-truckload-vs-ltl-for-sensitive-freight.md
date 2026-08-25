@@ -1,7 +1,7 @@
 ---
 title: "Partial Truckload vs. LTL for Sensitive Freight"
 description: "When freight cannot absorb a lot of handling or a lot of uncertainty, the real question is not just rate — it is the operating model."
-pubDate: 2026-08-28
+pubDate: 2026-08-25
 topic: "LTL"
 related:
   - "reducing-freight-damage-eliminating-handoffs"

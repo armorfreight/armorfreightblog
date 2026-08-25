@@ -1,7 +1,7 @@
 ---
 title: "When the Dock Is the Problem, Not the Truck"
 description: "A late shipment is not always a capacity problem. Sometimes the failure begins at the receiving dock, the appointment, or the handoff process."
-pubDate: 2026-08-29
+pubDate: 2026-08-25
 topic: "Customer service"
 related:
   - "choosing-the-right-truck-receiver"
