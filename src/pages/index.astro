@@ -10,7 +10,7 @@ const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 const featured = posts[0];
-const latest = posts.slice(1, 4);
+const latest = posts.slice(1, 5);
 
 const slugify = (s) => s.toLowerCase().replace(/\s+/g, '-');
 const usedTopics = new Set(
@@ -35,32 +35,48 @@ const topics = [
   <body class="bg-white text-af-ink">
     <Header />
     <main>
-      <!-- HERO -->
       <section class="bg-af-ink">
-        <div class="mx-auto max-w-5xl px-6 py-24 md:py-32">
+        <div class="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-28">
           <p class="text-xs font-bold uppercase tracking-[0.35em] text-af-green">Armor Freight Journal</p>
-          <h1 class="font-display mt-8 max-w-[16ch] text-5xl text-white md:text-8xl">
-            Shielding your supply chain. Simplifying your logistics.
-          </h1>
-          <p class="mt-8 max-w-2xl text-xl font-medium leading-snug text-neutral-400 md:text-2xl">
-            Operational insight on freight that actually moves — from the people who move it.
-          </p>
-          {featured && (
-            <a href={`/blog/${featured.id}/`}
-               class="mt-10 inline-block bg-af-green px-6 py-3 text-sm font-bold uppercase tracking-wider text-af-ink no-underline transition hover:brightness-95">
-              Read the Journal →
-            </a>
-          )}
+          <div class="mt-8 grid items-end gap-10 lg:grid-cols-[1.4fr_0.8fr]">
+            <div>
+              <h1 class="font-display max-w-[16ch] text-5xl text-white md:text-7xl lg:text-8xl">
+                Shielding your supply chain. Simplifying your logistics.
+              </h1>
+              <p class="mt-8 max-w-2xl text-xl font-medium leading-snug text-neutral-300 md:text-2xl">
+                Operational insight on freight that actually moves — from the people who move it.
+              </p>
+              <div class="mt-10 flex flex-wrap gap-4">
+                {featured && (
+                  <a href={`/blog/${featured.id}/`} class="inline-flex items-center justify-center bg-af-green px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-af-ink no-underline transition hover:bg-af-green-dark">
+                    Read the Journal →
+                  </a>
+                )}
+                <a href="mailto:operations@armorfreight.com?subject=Freight%20Quote" class="inline-flex items-center justify-center border border-white/30 bg-white/5 px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-white no-underline transition hover:bg-white/10">
+                  Get a Quote
+                </a>
+              </div>
+            </div>
+
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-left text-white shadow-2xl shadow-black/10">
+              <p class="text-xs font-bold uppercase tracking-[0.2em] text-af-green">Operating reality</p>
+              <p class="mt-4 text-3xl font-bold leading-tight text-white">What actually breaks freight isn’t the route. It’s the handoff.</p>
+              <p class="mt-4 text-sm leading-relaxed text-neutral-300">
+                The best freight decisions are made before a problem becomes a missed appointment.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- FEATURED -->
       {featured && (
-        <section class="mx-auto max-w-5xl px-6 py-20">
-          <div class="flex items-center gap-4 border-b-4 border-af-ink pb-3">
+        <section class="mx-auto max-w-6xl px-6 py-20 md:px-8">
+          <div class="flex items-center justify-between gap-4 border-b-4 border-af-ink pb-3">
             <span class="text-xs font-bold uppercase tracking-[0.25em] text-af-ink">Featured essay</span>
+            <span class="hidden text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark md:inline">Latest</span>
           </div>
-          <a href={`/blog/${featured.id}/`} class="group mt-8 block no-underline">
+
+          <a href={`/blog/${featured.id}/`} class="group mt-8 block rounded-3xl border border-neutral-200 bg-neutral-50 p-8 no-underline transition hover:border-af-green-dark hover:bg-white md:p-10">
             {featured.data.topic && (
               <span class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">{featured.data.topic}</span>
             )}
@@ -68,49 +84,48 @@ const topics = [
               {featured.data.title}
             </h2>
             <p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-700">{featured.data.description}</p>
-            <div class="mt-6 flex items-center gap-4">
-              <span class="text-sm font-bold uppercase tracking-wider text-af-green-dark">Read essay →</span>
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <span class="text-sm font-bold uppercase tracking-[0.12em] text-af-green-dark">Read essay →</span>
               <span class="text-sm text-neutral-500"><FormattedDate date={featured.data.pubDate} /></span>
             </div>
           </a>
         </section>
       )}
 
-      <!-- LATEST -->
       {latest.length > 0 && (
-        <section class="mx-auto max-w-5xl px-6 py-20">
+        <section class="mx-auto max-w-6xl px-6 py-20 md:px-8">
           <div class="border-b-4 border-af-ink pb-3">
             <span class="text-xs font-bold uppercase tracking-[0.25em] text-af-ink">Latest thinking</span>
           </div>
-          <ul class="mt-8 divide-y divide-neutral-200">
+          <div class="mt-8 grid gap-6 lg:grid-cols-2">
             {latest.map((post) => (
-              <li class="py-8 first:pt-2">
+              <article class="rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-af-green-dark hover:shadow-lg hover:shadow-af-green/10">
                 <a href={`/blog/${post.id}/`} class="group block no-underline">
                   {post.data.topic && (
                     <span class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">{post.data.topic}</span>
                   )}
-                  <h3 class="font-display mt-2 text-3xl text-af-ink transition group-hover:text-af-green-dark md:text-4xl">{post.data.title}</h3>
-                  <p class="mt-3 max-w-2xl text-neutral-700">{post.data.description}</p>
-                  <p class="mt-3 text-sm text-neutral-500"><FormattedDate date={post.data.pubDate} /></p>
+                  <h3 class="font-display mt-3 text-3xl leading-tight text-af-ink transition group-hover:text-af-green-dark md:text-4xl">{post.data.title}</h3>
+                  <p class="mt-3 text-base leading-relaxed text-neutral-700">{post.data.description}</p>
+                  <p class="mt-4 text-sm text-neutral-500"><FormattedDate date={post.data.pubDate} /></p>
                 </a>
-              </li>
+              </article>
             ))}
-          </ul>
+          </div>
         </section>
       )}
 
-      <!-- TOPIC INDEX -->
-      <section class="mx-auto max-w-5xl px-6 py-20">
+      <section class="mx-auto max-w-6xl px-6 py-20 md:px-8">
         <div class="flex items-baseline justify-between border-b-4 border-af-ink pb-3">
           <span class="font-display text-2xl text-af-ink md:text-3xl">Browse by topic</span>
           <span class="text-xs font-bold uppercase tracking-[0.25em] text-af-green-dark">The index</span>
         </div>
-        <div class="mt-2">
+        <div class="mt-4 grid gap-3 md:grid-cols-2">
           {topics.filter(([name]) => usedTopics.has(slugify(name))).map(([name, gloss]) => (
-            <a href={`/topics/${slugify(name)}/`} class="group flex items-baseline gap-3 border-b border-neutral-300 py-4 no-underline last:border-b-0">
-              <span class="whitespace-nowrap text-lg font-extrabold uppercase tracking-wide text-af-ink group-hover:text-af-green-dark">{name}</span>
-              <span class="min-w-6 flex-1 translate-y-[-4px] border-b border-dotted border-neutral-400"></span>
-              <span class="whitespace-nowrap text-sm italic text-af-green-dark">{gloss}</span>
+            <a href={`/topics/${slugify(name)}/`} class="group flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 no-underline transition hover:border-af-green-dark hover:bg-white">
+              <div class="flex items-center gap-3">
+                <span class="text-base font-extrabold uppercase tracking-[0.14em] text-af-ink group-hover:text-af-green-dark">{name}</span>
+              </div>
+              <span class="text-sm italic text-af-green-dark">{gloss}</span>
             </a>
           ))}
         </div>

@@ -2,18 +2,27 @@
 import { SITE_TITLE } from "../consts";
 ---
 
-<header class="border-b border-neutral-200 bg-white">
-  <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+<header class="border-b border-neutral-200 bg-white/95 backdrop-blur-sm">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 md:px-8">
     <a href="/" class="flex items-center gap-3 no-underline">
-      <img src="/af-shield.png" alt="" class="h-16 w-16 object-contain" />
-      <span class="text-lg font-bold tracking-tight text-black">{SITE_TITLE}</span>
+      <img src="/af-shield.png" alt="" class="h-12 w-12 object-contain md:h-14 md:w-14" />
+      <span class="text-base font-bold uppercase tracking-[0.18em] text-black md:text-lg">{SITE_TITLE}</span>
     </a>
 
-    <div class="flex items-center gap-6 text-sm font-medium">
-      <a href="/" class="text-black no-underline">Home</a>
-      <a href="/blog" class="text-black no-underline">Articles</a>
-      <a href="/about" class="text-black no-underline">About</a>
-      <a href="https://armorfreight.com" target="_blank" class="rounded-full bg-black px-4 py-2 text-white no-underline">Armor Freight →</a>
+    <div class="hidden items-center gap-6 text-sm font-medium text-black md:flex">
+      <a href="/" class="no-underline text-black hover:text-af-green-dark">Home</a>
+      <a href="/blog" class="no-underline text-black hover:text-af-green-dark">Articles</a>
+      <a href="/about" class="no-underline text-black hover:text-af-green-dark">About</a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="tel:+18885070767" class="hidden text-sm font-semibold text-black no-underline hover:text-af-green-dark sm:inline">(888) 507-0767</a>
+      <a
+        href="mailto:operations@armorfreight.com?subject=Freight%20Quote"
+        class="inline-flex items-center justify-center rounded-full bg-af-green px-4 py-2 text-sm font-bold uppercase tracking-[0.12em] text-af-ink no-underline transition hover:bg-af-green-dark"
+      >
+        Get a Quote
+      </a>
     </div>
   </nav>
 </header>
