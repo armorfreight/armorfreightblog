@@ -11,12 +11,17 @@ import AuthorMeta from "../components/AuthorMeta.astro";
 import KeepReading from "../components/KeepReading.astro";
 import ArticleCta from "../components/ArticleCta.astro";
 import RelatedServices from "../components/RelatedServices.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { SITE_TITLE } from "../consts";
+import { articleSchema, breadcrumbSchema, prodUrl } from "../lib/seo";
 
 type Props = CollectionEntry<"blog">["data"] & {
+  id: string;
   relatedPosts?: CollectionEntry<"blog">[];
 };
 
 const {
+  id,
   title,
   description,
   pubDate,
@@ -26,19 +31,50 @@ const {
   relatedServices = [],
   ctaHeadline,
   ctaText,
+  topic,
 } = Astro.props as Props;
+
+const articleUrl = prodUrl(`/blog/${id}/`);
+const articleJsonLd = articleSchema({
+  title,
+  description,
+  url: articleUrl,
+  pubDate: new Date(pubDate).toISOString(),
+  topic,
+});
+const breadcrumbJsonLd = breadcrumbSchema([
+  { name: 'Journal', url: '/' },
+  { name: 'Articles', url: '/blog/' },
+  { name: title },
+]);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead
+      title={`${title} | ${SITE_TITLE}`}
+      description={description}
+      type="article"
+      publishedTime={new Date(pubDate).toISOString()}
+    />
+    <JsonLd schema={articleJsonLd} />
+    <JsonLd schema={breadcrumbJsonLd} />
   </head>
 
   <body class="bg-white text-[#050505]">
     <Header />
 
     <main class="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-20">
+      <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-600">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="font-medium text-[#050505] underline underline-offset-2 hover:text-[#5f8f36]">Journal</a></li>
+          <li>/</li>
+          <li><a href="/blog/" class="font-medium text-[#050505] underline underline-offset-2 hover:text-[#5f8f36]">Articles</a></li>
+          <li>/</li>
+          <li aria-current="page" class="text-neutral-500">{title}</li>
+        </ol>
+      </nav>
       {heroImage && (
         <Image
           src={heroImage}
@@ -58,7 +94,7 @@ const {
         </h1>
 
         <p class="mt-4 text-sm font-medium text-neutral-600">
-          By <span class="font-semibold text-[#050505]">Aaron Bartholomew</span> · Armor Freight Services
+          By <a href="/authors/aaron-bartholomew/" class="font-semibold text-[#050505] underline underline-offset-2 hover:text-[#5f8f36]">Aaron Bartholomew</a> · Armor Freight Services
         </p>
 
         <div class="mt-6 text-sm uppercase tracking-[0.12em] text-neutral-500">

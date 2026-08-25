@@ -44,6 +44,6 @@ const relatedPosts = getRelatedPosts(post, allPosts);
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data} relatedPosts={relatedPosts}>
+<BlogPost {...post.data} id={post.id} relatedPosts={relatedPosts}>
 	<Content />
 </BlogPost>

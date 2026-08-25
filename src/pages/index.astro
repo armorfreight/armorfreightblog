@@ -4,7 +4,9 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import JsonLd from '../components/JsonLd.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { organizationSchema, websiteSchema } from '../lib/seo';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -45,6 +47,8 @@ const topics = [
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <JsonLd schema={websiteSchema} />
+    <JsonLd schema={organizationSchema} />
   </head>
   <body class="bg-white text-[#050505]">
     <Header />
@@ -92,7 +96,7 @@ const topics = [
 
             <div class="lg:pb-2">
               <p class="max-w-lg text-lg leading-relaxed text-neutral-700">{featured.data.description}</p>
-              <p class="mt-4 text-sm font-medium text-neutral-600">By Aaron Bartholomew · Armor Freight Services</p>
+              <p class="mt-4 text-sm font-medium text-neutral-600">By <a href="/authors/aaron-bartholomew/" class="font-semibold text-[#050505] underline underline-offset-2 hover:text-[#5f8f36]">Aaron Bartholomew</a> · Armor Freight Services</p>
               <div class="mt-6 flex flex-wrap items-center gap-4 border-t border-neutral-200 pt-4">
                 <a href={`/blog/${featured.id}/`} class="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#5f8f36] no-underline">Read essay →</a>
                 <span class="text-sm text-neutral-500"><FormattedDate date={featured.data.pubDate} /></span>
@@ -116,7 +120,7 @@ const topics = [
                   )}
                   <h3 class="font-display mt-3 text-[30px] leading-[0.96] text-[#050505] transition group-hover:text-[#5f8f36] md:text-[34px]">{post.data.title}</h3>
                   <p class="mt-3 text-base leading-relaxed text-neutral-700">{post.data.description}</p>
-                  <p class="mt-3 text-sm font-medium text-neutral-600">By Aaron Bartholomew · Armor Freight Services</p>
+                  <p class="mt-3 text-sm font-medium text-neutral-600">By <a href="/authors/aaron-bartholomew/" class="font-semibold text-[#050505] underline underline-offset-2 hover:text-[#5f8f36]">Aaron Bartholomew</a> · Armor Freight Services</p>
                   <p class="mt-4 text-sm text-neutral-500"><FormattedDate date={post.data.pubDate} /></p>
                 </a>
               </article>
@@ -139,7 +143,7 @@ const topics = [
                   )}
                   <h3 class="font-display mt-3 text-[28px] leading-[0.96] text-[#050505] transition group-hover:text-[#5f8f36] md:text-[32px]">{post.data.title}</h3>
                   <p class="mt-3 text-base leading-relaxed text-neutral-700">{post.data.description}</p>
-                  <p class="mt-3 text-sm font-medium text-neutral-600">By Aaron Bartholomew · Armor Freight Services</p>
+                  <p class="mt-3 text-sm font-medium text-neutral-600">By <a href="/authors/aaron-bartholomew/" class="font-semibold text-[#050505] underline underline-offset-2 hover:text-[#5f8f36]">Aaron Bartholomew</a> · Armor Freight Services</p>
                   <p class="mt-4 text-sm text-neutral-500"><FormattedDate date={post.data.pubDate} /></p>
                 </a>
               </article>

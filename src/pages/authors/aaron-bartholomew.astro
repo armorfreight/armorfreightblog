@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import JsonLd from '../../components/JsonLd.astro';
+import { SITE_TITLE } from '../../consts';
+import { AUTHOR_BIO, AUTHOR_NAME, profilePageSchema, prodUrl } from '../../lib/seo';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const pageUrl = prodUrl('/authors/aaron-bartholomew/');
+const articleLinks = posts.map((post) => ({
+  title: post.data.title,
+  url: prodUrl(`/blog/${post.id}/`),
+}));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`${AUTHOR_NAME} | ${SITE_TITLE}`} description={AUTHOR_BIO} />
+    <JsonLd schema={profilePageSchema({ url: pageUrl, articles: articleLinks })} />
+  </head>
+  <body class="bg-white text-[#050505]">
+    <Header />
+    <main class="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-20">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#5f8f36]">Author</p>
+      <h1 class="mt-4 font-display text-5xl leading-[0.9] text-[#050505] md:text-[64px]">
+        {AUTHOR_NAME}
+      </h1>
+      <p class="mt-4 text-lg text-neutral-700">Armor Freight Services</p>
+      <p class="mt-6 text-lg leading-relaxed text-neutral-700">{AUTHOR_BIO}</p>
+
+      <div class="mt-12 border-t border-neutral-200 pt-8">
+        <h2 class="font-display text-3xl text-[#050505] md:text-[42px]">Journal articles</h2>
+        <ul class="mt-6 space-y-5">
+          {posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.id}/`} class="group block no-underline">
+                <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36]">
+                  {post.data.topic ?? 'Journal'}
+                </span>
+                <h3 class="mt-2 text-2xl leading-tight text-[#050505] transition group-hover:text-[#5f8f36]">
+                  {post.data.title}
+                </h3>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <p class="mt-12 text-sm text-neutral-600">
+        <a href="/" class="font-semibold text-[#5f8f36] underline underline-offset-2 hover:text-[#050505]">
+          Return to the Journal
+        </a>
+      </p>
+    </main>
+    <Footer />
+  </body>
+</html>
