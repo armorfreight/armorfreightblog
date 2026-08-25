@@ -49,12 +49,14 @@ export function articleSchema({
   url,
   pubDate,
   topic,
+  image,
 }: {
   title: string;
   description: string;
   url: string;
   pubDate: string;
   topic?: string | null;
+  image?: string;
 }) {
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -78,6 +80,10 @@ export function articleSchema({
 
   if (topic) {
     schema.articleSection = topic;
+  }
+
+  if (image) {
+    schema.image = image;
   }
 
   return schema;

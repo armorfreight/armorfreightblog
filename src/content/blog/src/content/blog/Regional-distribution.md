@@ -6,6 +6,8 @@ topic: "Operations"
 relatedServices:
   - label: "Warehousing services"
     url: "https://armorfreight.com/warehousing-services/"
+ctaHeadline: "Need reliable regional coverage without the rush?"
+ctaText: "From recurring warehouse moves to overflow capacity, we can coordinate the lane around your actual operating schedule."
 ---
 
 Regional distribution services help manufacturers, distributors, and retailers move freight between facilities without bottlenecks, missed appointments, or unnecessary delays.

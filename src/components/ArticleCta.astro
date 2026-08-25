@@ -1,4 +1,6 @@
 ---
+import { withJournalTracking } from '../lib/tracking';
+
 interface Props {
   headline?: string;
   text?: string;
@@ -8,6 +10,10 @@ const {
   headline = 'Talk with the team',
   text = 'Need a quote? We’ll help you move freight without surprises.',
 } = Astro.props;
+
+const quoteUrl = withJournalTracking('https://armorfreight.com/request-a-quote/', 'article_cta_quote');
+const emailUrl = withJournalTracking('mailto:operations@armorfreight.com?subject=Freight%20Quote', 'article_cta_email');
+const phoneUrl = withJournalTracking('tel:+18885070767', 'article_cta_phone');
 ---
 
 <div class="mt-16 border-t border-neutral-200 pt-8">
@@ -15,18 +21,33 @@ const {
   <h2 class="font-display mt-3 text-3xl text-[#050505] md:text-4xl">{headline}</h2>
   {text && <p class="mt-4 max-w-2xl text-base leading-relaxed text-neutral-700">{text}</p>}
   <a
-    href="https://armorfreight.com/request-a-quote/"
+    href={quoteUrl}
+    data-track-event="article_cta_quote_click"
+    data-track-category="conversion"
+    data-track-label="Article CTA"
     class="mt-6 inline-flex items-center justify-center border border-[#050505] bg-[#050505] px-[15px] py-[15px] text-[17px] font-medium uppercase tracking-[1.3px] text-[#fffdfd] no-underline transition hover:bg-[#1d1d1d]"
     style="font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; border-radius: 0 0 20px 0; line-height: 1;"
   >
     Get a Quote
   </a>
   <div class="mt-6 grid gap-4 md:grid-cols-2">
-    <a href="mailto:operations@armorfreight.com?subject=Freight%20Quote" class="rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 p-4 text-[#050505] no-underline transition hover:border-[#5f8f36] hover:bg-white">
+    <a
+      href={emailUrl}
+      data-track-event="article_email_click"
+      data-track-category="contact"
+      data-track-label="Article email"
+      class="rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 p-4 text-[#050505] no-underline transition hover:border-[#5f8f36] hover:bg-white"
+    >
       <div class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36]">Email</div>
       <div class="mt-2 text-lg font-semibold">operations@armorfreight.com</div>
     </a>
-    <a href="tel:+18885070767" class="rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 p-4 text-[#050505] no-underline transition hover:border-[#5f8f36] hover:bg-white">
+    <a
+      href={phoneUrl}
+      data-track-event="article_phone_click"
+      data-track-category="contact"
+      data-track-label="Article phone"
+      class="rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 p-4 text-[#050505] no-underline transition hover:border-[#5f8f36] hover:bg-white"
+    >
       <div class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36]">Phone</div>
       <div class="mt-2 text-lg font-semibold">(888) 507-0767</div>
     </a>

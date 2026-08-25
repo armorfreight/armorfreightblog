@@ -6,6 +6,8 @@ topic: "Operations"
 relatedServices:
   - label: "Truckload shipping"
     url: "https://armorfreight.com/truckload-shipping/"
+ctaHeadline: "Need a smarter route than the default answer?"
+ctaText: "We look at the freight, the stops, and the actual operating constraints before recommending the equipment."
 ---
 
 Last week, a client came to us with a nine-stop delivery.

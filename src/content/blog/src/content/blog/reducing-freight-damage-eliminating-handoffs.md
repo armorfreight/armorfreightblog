@@ -6,6 +6,8 @@ topic: "LTL"
 relatedServices:
   - label: "Partial truckload shipping"
     url: "https://armorfreight.com/partial-truckload-shipping-ptl/"
+ctaHeadline: "Need fewer touches and less freight damage?"
+ctaText: "A direct move with the right equipment can reduce handoffs, dock exposure, and claim risk without turning the load into a custom project."
 ---
 
 Most damage claims don't begin with a forklift. They begin with a business model.

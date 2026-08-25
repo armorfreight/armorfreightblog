@@ -9,7 +9,7 @@ import { SITE_TITLE } from '../consts';
 interface Props {
   title: string;
   description: string;
-  image?: ImageMetadata;
+  image?: ImageMetadata | string;
   type?: 'website' | 'article';
   publishedTime?: string;
   modifiedTime?: string;
@@ -22,7 +22,7 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
 const DEFAULT_OG = new URL('/og-default.png', siteUrl).href;
 
 const { title, description, image, type = 'website', publishedTime, modifiedTime } = Astro.props;
-const ogImage = image ? new URL(image.src, Astro.url).href : DEFAULT_OG;
+const ogImage = typeof image === 'string' ? image : image ? new URL(image.src, Astro.url).href : DEFAULT_OG;
 const twitterCard = image ? 'summary_large_image' : 'summary';
 ---
 
@@ -72,3 +72,26 @@ const twitterCard = image ? 'summary_large_image' : 'summary';
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
+
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+
+  function sendJournalClick(eventName, link) {
+    const href = link.getAttribute('href') || '';
+    const label = link.dataset.trackLabel || link.textContent?.trim() || 'journal-link';
+    const category = link.dataset.trackCategory || 'cta';
+    window.dataLayer.push({
+      event: eventName,
+      category,
+      label,
+      href,
+      source: 'armor_freight_journal'
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-track-event]').forEach((link) => {
+      link.addEventListener('click', () => sendJournalClick(link.dataset.trackEvent, link));
+    });
+  });
+</script>

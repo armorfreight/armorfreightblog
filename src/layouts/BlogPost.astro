@@ -20,6 +20,8 @@ type Props = CollectionEntry<"blog">["data"] & {
   relatedPosts?: CollectionEntry<"blog">[];
 };
 
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://armorfreightblog.com';
+
 const {
   id,
   title,
@@ -35,12 +37,14 @@ const {
 } = Astro.props as Props;
 
 const articleUrl = prodUrl(`/blog/${id}/`);
+const articleOgImage = new URL(`/og/${id}.svg`, siteUrl).href;
 const articleJsonLd = articleSchema({
   title,
   description,
   url: articleUrl,
   pubDate: new Date(pubDate).toISOString(),
   topic,
+  image: articleOgImage,
 });
 const breadcrumbJsonLd = breadcrumbSchema([
   { name: 'Journal', url: '/' },
@@ -56,6 +60,7 @@ const breadcrumbJsonLd = breadcrumbSchema([
       title={`${title} | ${SITE_TITLE}`}
       description={description}
       type="article"
+      image={articleOgImage}
       publishedTime={new Date(pubDate).toISOString()}
     />
     <JsonLd schema={articleJsonLd} />

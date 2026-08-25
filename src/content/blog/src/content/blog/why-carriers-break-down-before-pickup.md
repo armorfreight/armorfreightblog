@@ -4,6 +4,8 @@ description: "A carrier that breaks down on the way to pickup usually didn’t b
 pubDate: 2026-08-25
 draft: false
 topic: "Operations"
+ctaHeadline: "Need a truck that stays committed?"
+ctaText: "When the load matters, we price around execution and capacity quality — not just the headline rate."
 ---
 
 Too many times in this business you hear about a truck “breaking down” on the way to pick up the freight.

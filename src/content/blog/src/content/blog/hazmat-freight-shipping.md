@@ -6,6 +6,8 @@ topic: "Operations"
 relatedServices:
   - label: "Hazmat freight shipping"
     url: "https://armorfreight.com/services-hazmat-freight-shipping/"
+ctaHeadline: "Need a hazmat plan before the dock gets tight?"
+ctaText: "If the shipment is regulated, time-sensitive, or equipment-sensitive, we’ll work the route, equipment, and paperwork before pickup."
 ---
 
 A hazmat quote can look simple on paper.

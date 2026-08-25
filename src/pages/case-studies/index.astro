@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+
+const caseStudies = (await getCollection('caseStudies')).sort(
+  (a, b) => (b.data.publishedDate?.valueOf() ?? 0) - (a.data.publishedDate?.valueOf() ?? 0)
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Case studies | Armor Freight Journal</title>
+  </head>
+  <body>
+    <main style="max-width: 760px; margin: 4rem auto; padding: 0 1.5rem; font-family: Arial, sans-serif; color: #111;">
+      <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 11px; color: #5f8f36; font-weight: 700;">Armor Freight Journal</p>
+      <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); margin: 1rem 0; line-height: 1;">Case studies</h1>
+      <p style="font-size: 1.1rem; line-height: 1.7; color: #444;">
+        We do not publish placeholder or fabricated customer results. When a real customer story is approved and the operating details are verified, it can be added to this collection.
+      </p>
+
+      {caseStudies.length > 0 ? (
+        <ul style="list-style: none; padding: 0; margin-top: 2rem; display: grid; gap: 1rem;">
+          {caseStudies.map((study) => (
+            <li>
+              <a href={`/case-studies/${study.id}/`} style="color: #111; text-decoration: none; font-weight: 700;">
+                {study.data.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div style="margin-top: 2rem; border: 1px solid #d6d6d0; padding: 1.5rem; background: #f9f9f7; border-radius: 12px;">
+          No case studies have been published yet.
+        </div>
+      )}
+    </main>
+  </body>
+</html>
