@@ -2,10 +2,12 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-af-green: #8fc31f;
-  --color-af-green-dark: #6a9416;
-  --color-af-ink: #0a0a0a;
-  --font-display: "Anton", system-ui, sans-serif;
+  --color-af-green: #7db74e;
+  --color-af-green-dark: #5f8f36;
+  --color-af-ink: #050505;
+  --font-display: "Teko", "Arial Narrow", sans-serif;
+  --font-body: "Work Sans", system-ui, sans-serif;
+  --font-button: "Bebas Neue", "Arial Narrow", sans-serif;
 }
 
 html {
@@ -15,8 +17,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "Archivo", system-ui, sans-serif;
-  color: #0a0a0a;
+  font-family: var(--font-body);
+  color: #050505;
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -57,10 +59,10 @@ pre {
    because Anton sets very tight by default. */
 .font-display {
   font-family: var(--font-display);
-  font-weight: 400; /* Anton ships at a single heavy weight */
-  letter-spacing: 0.005em;
-  line-height: 0.95;
-  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  text-transform: none;
 }
 
 /* ---- Editorial article typography ---- */

@@ -32,34 +32,34 @@ const topics = [
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body class="bg-white text-af-ink">
+  <body class="bg-white text-[#050505]">
     <Header />
     <main>
-      <section class="bg-af-ink">
-        <div class="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-28">
-          <p class="text-xs font-bold uppercase tracking-[0.35em] text-af-green">Armor Freight Journal</p>
-          <div class="mt-8 grid items-end gap-10 lg:grid-cols-[1.4fr_0.8fr]">
+      <section class="bg-[#050505]">
+        <div class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-20">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.35em] text-[#7db74e]">Armor Freight Journal</p>
+          <div class="mt-8 grid items-end gap-10 lg:grid-cols-[1.5fr_0.9fr]">
             <div>
-              <h1 class="font-display max-w-[16ch] text-5xl text-white md:text-7xl lg:text-8xl">
+              <h1 class="font-display max-w-[16ch] text-5xl leading-[0.9] text-white md:text-[72px] lg:text-[86px]">
                 Shielding your supply chain. Simplifying your logistics.
               </h1>
-              <p class="mt-8 max-w-2xl text-xl font-medium leading-snug text-neutral-300 md:text-2xl">
+              <p class="mt-7 max-w-2xl text-xl font-medium leading-snug text-neutral-300 md:text-[24px] md:leading-[1.4]">
                 Operational insight on freight that actually moves — from the people who move it.
               </p>
               <div class="mt-10 flex flex-wrap gap-4">
                 {featured && (
-                  <a href={`/blog/${featured.id}/`} class="inline-flex items-center justify-center bg-af-green px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-af-ink no-underline transition hover:bg-af-green-dark">
+                  <a href={`/blog/${featured.id}/`} class="inline-flex items-center justify-center bg-[#7db74e] px-6 py-[15px] text-[17px] font-medium uppercase tracking-[1.3px] text-[#050505] no-underline transition hover:bg-[#5f8f36]" style="font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; border-radius: 0 0 20px 0; line-height: 1;">
                     Read the Journal →
                   </a>
                 )}
-                <a href="mailto:operations@armorfreight.com?subject=Freight%20Quote" class="inline-flex items-center justify-center border border-white/30 bg-white/5 px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-white no-underline transition hover:bg-white/10">
+                <a href="mailto:operations@armorfreight.com?subject=Freight%20Quote" class="inline-flex items-center justify-center border border-white/30 bg-white/5 px-6 py-[15px] text-[17px] font-medium uppercase tracking-[1.3px] text-white no-underline transition hover:bg-white/10" style="font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; border-radius: 0 0 20px 0; line-height: 1;">
                   Get a Quote
                 </a>
               </div>
             </div>
 
-            <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-left text-white shadow-2xl shadow-black/10">
-              <p class="text-xs font-bold uppercase tracking-[0.2em] text-af-green">Operating reality</p>
+            <div class="rounded-[0_0_20px_0] border border-white/10 bg-white/5 p-6 text-left text-white shadow-[0_14px_40px_rgba(0,0,0,0.12)]">
+              <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7db74e]">Operating reality</p>
               <p class="mt-4 text-3xl font-bold leading-tight text-white">What actually breaks freight isn’t the route. It’s the handoff.</p>
               <p class="mt-4 text-sm leading-relaxed text-neutral-300">
                 The best freight decisions are made before a problem becomes a missed appointment.
@@ -70,22 +70,22 @@ const topics = [
       </section>
 
       {featured && (
-        <section class="mx-auto max-w-6xl px-6 py-20 md:px-8">
-          <div class="flex items-center justify-between gap-4 border-b-4 border-af-ink pb-3">
-            <span class="text-xs font-bold uppercase tracking-[0.25em] text-af-ink">Featured essay</span>
-            <span class="hidden text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark md:inline">Latest</span>
+        <section class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-20">
+          <div class="flex items-center justify-between gap-4 border-b-4 border-[#050505] pb-3">
+            <span class="text-[12px] font-semibold uppercase tracking-[0.25em] text-[#050505]">Featured essay</span>
+            <span class="hidden text-[12px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36] md:inline">Latest</span>
           </div>
 
-          <a href={`/blog/${featured.id}/`} class="group mt-8 block rounded-3xl border border-neutral-200 bg-neutral-50 p-8 no-underline transition hover:border-af-green-dark hover:bg-white md:p-10">
+          <a href={`/blog/${featured.id}/`} class="group mt-8 block rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 p-8 no-underline transition hover:border-[#5f8f36] hover:bg-white md:p-10">
             {featured.data.topic && (
-              <span class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">{featured.data.topic}</span>
+              <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36]">{featured.data.topic}</span>
             )}
-            <h2 class="font-display mt-4 max-w-[16ch] text-4xl text-af-ink transition group-hover:text-af-green-dark md:text-6xl">
+            <h2 class="font-display mt-4 max-w-[16ch] text-4xl text-[#050505] transition group-hover:text-[#5f8f36] md:text-[60px]">
               {featured.data.title}
             </h2>
             <p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-700">{featured.data.description}</p>
             <div class="mt-8 flex flex-wrap items-center gap-4">
-              <span class="text-sm font-bold uppercase tracking-[0.12em] text-af-green-dark">Read essay →</span>
+              <span class="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#5f8f36]">Read essay →</span>
               <span class="text-sm text-neutral-500"><FormattedDate date={featured.data.pubDate} /></span>
             </div>
           </a>
@@ -93,18 +93,18 @@ const topics = [
       )}
 
       {latest.length > 0 && (
-        <section class="mx-auto max-w-6xl px-6 py-20 md:px-8">
-          <div class="border-b-4 border-af-ink pb-3">
-            <span class="text-xs font-bold uppercase tracking-[0.25em] text-af-ink">Latest thinking</span>
+        <section class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-20">
+          <div class="border-b-4 border-[#050505] pb-3">
+            <span class="text-[12px] font-semibold uppercase tracking-[0.25em] text-[#050505]">Latest thinking</span>
           </div>
           <div class="mt-8 grid gap-6 lg:grid-cols-2">
             {latest.map((post) => (
-              <article class="rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-af-green-dark hover:shadow-lg hover:shadow-af-green/10">
+              <article class="rounded-[0_0_20px_0] border border-neutral-200 bg-white p-6 transition hover:border-[#5f8f36] hover:shadow-[0_14px_32px_rgba(125,183,78,0.14)]">
                 <a href={`/blog/${post.id}/`} class="group block no-underline">
                   {post.data.topic && (
-                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-af-green-dark">{post.data.topic}</span>
+                    <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36]">{post.data.topic}</span>
                   )}
-                  <h3 class="font-display mt-3 text-3xl leading-tight text-af-ink transition group-hover:text-af-green-dark md:text-4xl">{post.data.title}</h3>
+                  <h3 class="font-display mt-3 text-3xl leading-[0.95] text-[#050505] transition group-hover:text-[#5f8f36] md:text-[42px]">{post.data.title}</h3>
                   <p class="mt-3 text-base leading-relaxed text-neutral-700">{post.data.description}</p>
                   <p class="mt-4 text-sm text-neutral-500"><FormattedDate date={post.data.pubDate} /></p>
                 </a>
@@ -114,18 +114,18 @@ const topics = [
         </section>
       )}
 
-      <section class="mx-auto max-w-6xl px-6 py-20 md:px-8">
-        <div class="flex items-baseline justify-between border-b-4 border-af-ink pb-3">
-          <span class="font-display text-2xl text-af-ink md:text-3xl">Browse by topic</span>
-          <span class="text-xs font-bold uppercase tracking-[0.25em] text-af-green-dark">The index</span>
+      <section class="mx-auto max-w-[1240px] px-5 py-16 md:px-8 md:py-20">
+        <div class="flex items-baseline justify-between border-b-4 border-[#050505] pb-3">
+          <span class="font-display text-2xl text-[#050505] md:text-[38px]">Browse by topic</span>
+          <span class="text-[12px] font-semibold uppercase tracking-[0.25em] text-[#5f8f36]">The index</span>
         </div>
         <div class="mt-4 grid gap-3 md:grid-cols-2">
           {topics.filter(([name]) => usedTopics.has(slugify(name))).map(([name, gloss]) => (
-            <a href={`/topics/${slugify(name)}/`} class="group flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 no-underline transition hover:border-af-green-dark hover:bg-white">
+            <a href={`/topics/${slugify(name)}/`} class="group flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 no-underline transition hover:border-[#5f8f36] hover:bg-white">
               <div class="flex items-center gap-3">
-                <span class="text-base font-extrabold uppercase tracking-[0.14em] text-af-ink group-hover:text-af-green-dark">{name}</span>
+                <span class="text-base font-extrabold uppercase tracking-[0.14em] text-[#050505] group-hover:text-[#5f8f36]">{name}</span>
               </div>
-              <span class="text-sm italic text-af-green-dark">{gloss}</span>
+              <span class="text-sm italic text-[#5f8f36]">{gloss}</span>
             </a>
           ))}
         </div>
