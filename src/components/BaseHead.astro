@@ -75,18 +75,40 @@ const twitterCard = image ? 'summary_large_image' : 'summary';
 
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () {
+    window.dataLayer.push(arguments);
+  };
+
+  if (!window.__armorFreightJournalGtagLoaded) {
+    window.__armorFreightJournalGtagLoaded = true;
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-JQKRYJF4RS';
+    script.onload = function () {
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-JQKRYJF4RS');
+    };
+    document.head.appendChild(script);
+  }
 
   function sendJournalClick(eventName, link) {
     const href = link.getAttribute('href') || '';
     const label = link.dataset.trackLabel || link.textContent?.trim() || 'journal-link';
     const category = link.dataset.trackCategory || 'cta';
-    window.dataLayer.push({
+    const payload = {
       event: eventName,
       category,
       label,
       href,
       source: 'armor_freight_journal'
-    });
+    };
+
+    window.dataLayer.push(payload);
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, payload);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
