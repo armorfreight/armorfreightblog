@@ -10,28 +10,21 @@ const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 const featured = posts[0];
-const latest = posts.slice(1, 5);
+const featuredId = featured?.id;
+const latest = posts.filter((post) => post.id !== featuredId).slice(0, 3);
 
-const curatedSections = [
-  {
-    label: 'Customer service',
-    posts: posts.filter((post) => post.data.topic === 'Customer Service').slice(0, 2),
-  },
-  {
-    label: 'LTL',
-    posts: posts.filter((post) => post.data.topic === 'LTL').slice(0, 2),
-  },
-  {
-    label: 'Foundational reads',
-    posts: posts
-      .filter((post) => post.data.topic === 'Operations' && post.id !== featured?.id)
-      .slice(0, 2),
-  },
-];
-const curatedPosts = curatedSections
-  .flatMap((section) => section.posts)
-  .filter((post, index, items) => items.findIndex((item) => item.id === post.id) === index)
-  .slice(0, 6);
+const latestIds = new Set(latest.map((post) => post.id));
+const curatedPriority = ['Customer Service', 'LTL', 'Operations'];
+const curatedByTopic = curatedPriority.flatMap((topic) =>
+  posts.filter((post) => post.id !== featuredId && !latestIds.has(post.id) && post.data.topic === topic).slice(0, 1)
+);
+const remainingCurated = posts.filter(
+  (post) =>
+    post.id !== featuredId &&
+    !latestIds.has(post.id) &&
+    !curatedByTopic.some((candidate) => candidate.id === post.id)
+);
+const curatedPosts = [...curatedByTopic, ...remainingCurated].slice(0, 3);
 
 const slugify = (s) => s.toLowerCase().replace(/\s+/g, '-');
 const usedTopics = new Set(
