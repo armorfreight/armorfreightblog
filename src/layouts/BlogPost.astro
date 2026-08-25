@@ -9,6 +9,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 import NewsletterSignup from "../components/NewsletterSignup.astro";
 import AuthorMeta from "../components/AuthorMeta.astro";
 import KeepReading from "../components/KeepReading.astro";
+import ArticleCta from "../components/ArticleCta.astro";
 
 type Props = CollectionEntry<"blog">["data"] & {
   relatedPosts?: CollectionEntry<"blog">[];
@@ -21,6 +22,8 @@ const {
   updatedDate,
   heroImage,
   relatedPosts = [],
+  ctaHeadline,
+  ctaText,
 } = Astro.props as Props;
 ---
 
@@ -77,27 +80,7 @@ const {
 
       <KeepReading posts={relatedPosts} />
 
-      <div class="mt-16 border-t border-neutral-200 pt-8">
-        <p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#5f8f36]">Need a quote?</p>
-        <h2 class="font-display mt-3 text-3xl text-[#050505] md:text-4xl">Talk with the team</h2>
-        <a
-          href="https://armorfreight.com/request-a-quote/"
-          class="mt-6 inline-flex items-center justify-center border border-[#050505] bg-[#050505] px-[15px] py-[15px] text-[17px] font-medium uppercase tracking-[1.3px] text-[#fffdfd] no-underline transition hover:bg-[#1d1d1d]"
-          style="font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; border-radius: 0 0 20px 0; line-height: 1;"
-        >
-          Get a Quote
-        </a>
-        <div class="mt-6 grid gap-4 md:grid-cols-2">
-          <a href="mailto:operations@armorfreight.com?subject=Freight%20Quote" class="rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 p-4 text-[#050505] no-underline transition hover:border-[#5f8f36] hover:bg-white">
-            <div class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36]">Email</div>
-            <div class="mt-2 text-lg font-semibold">operations@armorfreight.com</div>
-          </a>
-          <a href="tel:+18885070767" class="rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 p-4 text-[#050505] no-underline transition hover:border-[#5f8f36] hover:bg-white">
-            <div class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36]">Phone</div>
-            <div class="mt-2 text-lg font-semibold">(888) 507-0767</div>
-          </a>
-        </div>
-      </div>
+      <ArticleCta headline={ctaHeadline} text={ctaText} />
 
       <div class="mt-16 border-t border-neutral-200 pt-6">
         <p class="text-sm leading-relaxed text-neutral-500">
