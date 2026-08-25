@@ -1,0 +1,30 @@
+---
+interface Service {
+  label: string;
+  url: string;
+}
+
+interface Props {
+  services?: Service[];
+}
+
+const { services = [] } = Astro.props;
+---
+
+{services.length > 0 && (
+  <div class="mt-10 border-t border-neutral-200 pt-6">
+    <p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#5f8f36]">Related services</p>
+    <ul class="mt-3 flex flex-wrap gap-2">
+      {services.map((service) => (
+        <li>
+          <a
+            href={service.url}
+            class="inline-flex items-center rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm font-medium text-[#050505] no-underline transition hover:border-[#5f8f36] hover:bg-white"
+          >
+            {service.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}

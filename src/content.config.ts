@@ -15,6 +15,12 @@ const blog = defineCollection({
 			heroImage: z.optional(image()),
 			topic: z.string().optional(),
 			related: z.array(z.string()).optional(),
+			relatedServices: z.array(
+				z.object({
+					label: z.string(),
+					url: z.string().url(),
+				}),
+			).optional(),
 			ctaHeadline: z.string().optional(),
 			ctaText: z.string().optional(),
 		}),

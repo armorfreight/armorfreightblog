@@ -3,6 +3,9 @@ title: "Regional Distribution Services for Warehouses and DCs"
 description: "Regional distribution services for warehouse transfers, dedicated routes, replenishment, and overflow capacity across the Northeast, Mid-Atlantic, and Southeast."
 pubDate: 2026-08-13
 topic: "Operations"
+relatedServices:
+  - label: "Warehousing services"
+    url: "https://armorfreight.com/warehousing-services/"
 ---
 
 Regional distribution services help manufacturers, distributors, and retailers move freight between facilities without bottlenecks, missed appointments, or unnecessary delays.

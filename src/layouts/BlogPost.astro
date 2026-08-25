@@ -10,6 +10,7 @@ import NewsletterSignup from "../components/NewsletterSignup.astro";
 import AuthorMeta from "../components/AuthorMeta.astro";
 import KeepReading from "../components/KeepReading.astro";
 import ArticleCta from "../components/ArticleCta.astro";
+import RelatedServices from "../components/RelatedServices.astro";
 
 type Props = CollectionEntry<"blog">["data"] & {
   relatedPosts?: CollectionEntry<"blog">[];
@@ -22,6 +23,7 @@ const {
   updatedDate,
   heroImage,
   relatedPosts = [],
+  relatedServices = [],
   ctaHeadline,
   ctaText,
 } = Astro.props as Props;
@@ -77,6 +79,8 @@ const {
       </article>
 
       <AuthorMeta className="mt-10" />
+
+      <RelatedServices services={relatedServices} />
 
       <KeepReading posts={relatedPosts} />
 

@@ -3,6 +3,9 @@ title: "Hazmat Freight Shipping: How Armor Handles Rate, Equipment, Routing, and
 description: "Hazmat quotes depend on more than weight and miles. Carrier access, equipment, routing, paperwork, and timing all change the rate and lead time."
 pubDate: 2026-08-18
 topic: "Operations"
+relatedServices:
+  - label: "Hazmat freight shipping"
+    url: "https://armorfreight.com/services-hazmat-freight-shipping/"
 ---
 
 A hazmat quote can look simple on paper.

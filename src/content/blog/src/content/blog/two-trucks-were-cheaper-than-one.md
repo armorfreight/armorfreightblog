@@ -3,6 +3,9 @@ title: "Two Trucks Were Cheaper Than One"
 description: "A nine-stop load, the weight to match, and the quiet decision that tells you everything about how we run freight."
 pubDate: 2026-07-13
 topic: "Operations"
+relatedServices:
+  - label: "Truckload shipping"
+    url: "https://armorfreight.com/truckload-shipping/"
 ---
 
 Last week, a client came to us with a nine-stop delivery.
