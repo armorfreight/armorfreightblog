@@ -7,6 +7,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import NewsletterSignup from "../components/NewsletterSignup.astro";
+import AuthorMeta from "../components/AuthorMeta.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -47,6 +48,10 @@ const {
           {title}
         </h1>
 
+        <p class="mt-4 text-sm font-medium text-neutral-600">
+          By <span class="font-semibold text-[#050505]">Aaron Bartholomew</span> · Armor Freight Services
+        </p>
+
         <div class="mt-6 text-sm uppercase tracking-[0.12em] text-neutral-500">
           <FormattedDate date={pubDate} />
           {
@@ -63,6 +68,8 @@ const {
       <article class="prose prose-lg prose-neutral max-w-none">
         <slot />
       </article>
+
+      <AuthorMeta className="mt-10" />
 
       <div class="mt-16 border-t border-neutral-200 pt-8">
         <p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#5f8f36]">Need a quote?</p>

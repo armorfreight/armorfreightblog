@@ -1,0 +1,28 @@
+---
+interface Props {
+  compact?: boolean;
+  className?: string;
+}
+
+const { compact = false, className = '' } = Astro.props;
+const name = 'Aaron Bartholomew';
+const byline = 'Armor Freight Services';
+const bio =
+  'Freight operator with hands-on experience across driving, dispatch, brokerage, and day-to-day transportation operations. Writes the Armor Freight Journal from an operator’s perspective.';
+---
+
+<div class:list={['not-prose', className]}>
+  {
+    compact ? (
+      <p class="mt-4 text-sm font-medium text-neutral-600">
+        By <span class="font-semibold text-[#050505]">{name}</span> · {byline}
+      </p>
+    ) : (
+      <div class="mt-8 rounded-[0_0_20px_0] border border-neutral-200 bg-neutral-50 p-5">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#5f8f36]">Author</p>
+        <p class="mt-2 text-xl font-semibold text-[#050505]">{name}</p>
+        <p class="mt-2 text-sm leading-relaxed text-neutral-600">{bio}</p>
+      </div>
+    )
+  }
+</div>
