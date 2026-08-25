@@ -2,6 +2,33 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
+function getRelatedPosts(currentPost: CollectionEntry<'blog'>, allPosts: CollectionEntry<'blog'>[]) {
+	const byDate = (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+		new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
+
+	const explicit = (currentPost.data.related ?? [])
+		.map((slug) => allPosts.find((post) => post.id === slug))
+		.filter((post): post is CollectionEntry<'blog'> => Boolean(post) && post.id !== currentPost.id);
+
+	const seen = new Set(explicit.map((post) => post.id));
+	const sameTopic = currentPost.data.topic
+		? allPosts
+			.filter((post) => post.id !== currentPost.id && post.data.topic === currentPost.data.topic && !seen.has(post.id))
+			.sort(byDate)
+		: [];
+
+	const fallback = allPosts
+		.filter(
+			(post) =>
+				post.id !== currentPost.id &&
+				!seen.has(post.id) &&
+				!sameTopic.some((candidate) => candidate.id === post.id),
+		)
+		.sort(byDate);
+
+	return [...explicit, ...sameTopic, ...fallback].slice(0, 3);
+}
+
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
@@ -12,9 +39,11 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
+const allPosts = await getCollection('blog');
+const relatedPosts = getRelatedPosts(post, allPosts);
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} relatedPosts={relatedPosts}>
 	<Content />
 </BlogPost>
