@@ -34,8 +34,12 @@ const {
   ctaHeadline,
   ctaText,
   topic,
+  seoTitle,
 } = Astro.props as Props;
-
+ 
+// Prefer an explicit SEO title when provided in frontmatter; fall back to visible title + site
+const headTitle = seoTitle ? `${seoTitle} | ${SITE_TITLE}` : `${title} | ${SITE_TITLE}`;
+ 
 const articleUrl = prodUrl(`/blog/${id}/`);
 const articleOgImage = new URL(`/og/${id}.svg`, siteUrl).href;
 const articleJsonLd = articleSchema({
