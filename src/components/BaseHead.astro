@@ -10,6 +10,8 @@ interface Props {
   title: string;
   description: string;
   image?: ImageMetadata | string;
+  ogTitle?: string;
+  ogDescription?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
   modifiedTime?: string;
@@ -21,7 +23,7 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
 // Site-wide default share image (branded shield). Lives in /public.
 const DEFAULT_OG = new URL('/og-default.png', siteUrl).href;
 
-const { title, description, image, type = 'website', publishedTime, modifiedTime } = Astro.props;
+const { title, description, image, ogTitle, ogDescription, type = 'website', publishedTime, modifiedTime } = Astro.props;
 const ogImage = typeof image === 'string' ? image : image ? new URL(image.src, Astro.url).href : DEFAULT_OG;
 const twitterCard = image ? 'summary_large_image' : 'summary';
 ---
@@ -59,8 +61,8 @@ const twitterCard = image ? 'summary_large_image' : 'summary';
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalURL} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta property="og:title" content={ogTitle || title} />
+<meta property="og:description" content={ogDescription || description} />
 <meta property="og:image" content={ogImage} />
 <meta property="og:site_name" content={SITE_TITLE} />
 {publishedTime && <meta property="article:published_time" content={publishedTime} />}
@@ -69,8 +71,8 @@ const twitterCard = image ? 'summary_large_image' : 'summary';
 <!-- Twitter -->
 <meta property="twitter:card" content={twitterCard} />
 <meta property="twitter:url" content={canonicalURL} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
+<meta property="twitter:title" content={ogTitle || title} />
+<meta property="twitter:description" content={ogDescription || description} />
 <meta property="twitter:image" content={ogImage} />
 
 <script is:inline>
